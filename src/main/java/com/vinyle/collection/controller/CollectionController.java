@@ -1,19 +1,19 @@
 package com.vinyle.collection.controller;
 
 import com.vinyle.collection.model.VinyleModel;
+import com.vinyle.collection.repository.VinyleRepository;
 import com.vinyle.collection.service.CollectionService;
 import com.vinyle.collection.service.VinylesService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/vinyles")
 @Getter
 @Setter
 public class CollectionController {
@@ -24,13 +24,13 @@ public class CollectionController {
     @Autowired
     private VinylesService vinylesService;
 
-    @GetMapping
-    public VinylesService getVinylesService() {
-        return vinylesService;
+    @GetMapping("/vinyles")
+    public List<VinyleModel> getVinylesService() {
+        return vinylesService.getAll();
     }
 
-    /*@PostMapping("api/collection/{name}")
-    private void setVinylName(String name){
-        vinyleModel.setTitle(name);
-    }*/
+    @PostMapping("/new-vinyle")
+    public void save(){
+        vinylesService.save();
+    }
 }

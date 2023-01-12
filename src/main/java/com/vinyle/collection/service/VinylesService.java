@@ -1,22 +1,25 @@
 package com.vinyle.collection.service;
 
 import com.vinyle.collection.model.VinyleModel;
+import com.vinyle.collection.repository.VinyleRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Getter
 @Setter
 public class VinylesService {
 
+    @Autowired
+    private VinyleRepository vinyleRepository;
     private VinyleModel vinyleModel = new VinyleModel();
 
-    public ArrayList<VinyleModel> getVinyleName(){
-        //return vinyleModel.getTitle();
+    public ArrayList<VinyleModel> getVinyle(){
 
         ArrayList<VinyleModel> myVinyls = new ArrayList<>();
 
@@ -41,4 +44,11 @@ public class VinylesService {
         return myVinyls;
     }
 
+    public List<VinyleModel> getAll(){
+        return vinyleRepository.findAll();
+    }
+
+    public void save(){
+        vinyleRepository.save(vinyleModel);
+    }
 }

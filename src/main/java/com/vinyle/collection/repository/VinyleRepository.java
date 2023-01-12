@@ -8,10 +8,5 @@ import java.util.List;
 
 @Repository
 public interface VinyleRepository extends JpaRepository<VinyleModel, Integer> {
-    @Override
-    List<VinyleModel> findAll();
-
-    @Override
-    VinyleModel getReferenceById(Integer integer);
 }
 
