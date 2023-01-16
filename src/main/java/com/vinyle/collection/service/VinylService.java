@@ -1,25 +1,24 @@
 package com.vinyle.collection.service;
 
-import com.vinyle.collection.model.VinyleModel;
-import com.vinyle.collection.repository.VinyleRepository;
+import com.vinyle.collection.model.VinylModel;
+import com.vinyle.collection.repository.VinylRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Getter
 @Setter
-public class VinylesService {
+public class VinylService {
 
     @Autowired
-    private VinyleRepository vinyleRepository;
-    private VinyleModel vinyleModel = new VinyleModel();
+    private VinylRepository vinyleRepository;
+    private VinylModel vinyleModel = new VinylModel();
 
-    public ArrayList<VinyleModel> getVinyle(){
+    /*public ArrayList<VinyleModel> getVinyle(){
 
         ArrayList<VinyleModel> myVinyls = new ArrayList<>();
 
@@ -42,13 +41,17 @@ public class VinylesService {
         myVinyls.add(Soen);
 
         return myVinyls;
-    }
+    }*/
 
-    public List<VinyleModel> getAll(){
+    public List<VinylModel> getAll(){
         return vinyleRepository.findAll();
     }
 
-    public void save(){
-        vinyleRepository.save(vinyleModel);
+    public VinylModel getById(int id){
+        return vinyleRepository.getReferenceById(id);
+    }
+
+    public VinylModel save(VinylModel vinyleModel){
+        return vinyleRepository.save(vinyleModel);
     }
 }

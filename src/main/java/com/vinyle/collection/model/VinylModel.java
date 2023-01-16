@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "vinyle")
+@Table(name = "vinyl")
 @Getter
 @Setter
-public class VinyleModel {
+public class VinylModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vinyle_id", columnDefinition = "INT")
-    private int vinyle_id;
+    @Column(name = "vinyl_id", columnDefinition = "INT")
+    private int vinyl_id;
 
     @Column(name = "artist_name", columnDefinition = "VARCHAR(255)")
     private String artistName;
