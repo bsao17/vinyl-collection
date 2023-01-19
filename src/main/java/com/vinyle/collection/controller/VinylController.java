@@ -33,4 +33,10 @@ public class VinylController {
     public VinylModel createVinyl(@RequestBody VinylModel vinylModel){
         return vinylesService.save(vinylModel);
     }
+
+    @PutMapping(path = "/update/{id}")
+    public VinylModel update(@PathVariable int id, @RequestBody VinylModel vinylModel) throws Exception {
+        return vinylesService.update(id, vinylModel);
+    }
+
 }

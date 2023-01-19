@@ -54,4 +54,12 @@ public class VinylService {
     public VinylModel save(VinylModel vinyleModel){
         return vinyleRepository.save(vinyleModel);
     }
+
+    public VinylModel update(int id, VinylModel vinyleModel) throws Exception {
+        if(vinyleModel.getVinyl_id() != id){
+            throw new Exception("Mauvaise id");
+        } else {
+            return vinyleRepository.save(vinyleModel);
+        }
+    }
 }
