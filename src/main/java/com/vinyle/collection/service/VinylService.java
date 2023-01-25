@@ -2,12 +2,16 @@ package com.vinyle.collection.service;
 
 import com.vinyle.collection.model.VinylModel;
 import com.vinyle.collection.repository.VinylRepository;
+import jakarta.persistence.EntityManager;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Getter
@@ -15,33 +19,12 @@ import java.util.List;
 public class VinylService {
 
     @Autowired
-    private VinylRepository vinyleRepository;
-    private VinylModel vinyleModel = new VinylModel();
+    private final VinylRepository vinyleRepository;
 
-    /*public ArrayList<VinyleModel> getVinyle(){
-
-        ArrayList<VinyleModel> myVinyls = new ArrayList<>();
-
-        VinyleModel Ghost = new VinyleModel();
-        Ghost.setArtistName("Ghost");
-        Ghost.setVinylTitle("Imperia");
-        Ghost.setVinyle_id(1);
-        Ghost.setVinylSize(33);
-        Ghost.setVinylColor("black");
-        Ghost.setVinylJacket("https://jacketGhost.com");
-        myVinyls.add(Ghost);
-
-        VinyleModel Soen = new VinyleModel();
-        Soen.setArtistName("Soen");
-        Soen.setVinyle_id(2);
-        Soen.setVinylTitle("Antartica");
-        Soen.setVinylSize(33);
-        Soen.setVinylColor("black");
-        Soen.setVinylJacket("https://soenJacket.com");
-        myVinyls.add(Soen);
-
-        return myVinyls;
-    }*/
+    // rappel: constructeur obligatoire lorsqu'il y a injection de dépendance avec @Autowired et une constante avec final
+    public VinylService(VinylRepository vinyleRepository) {
+        this.vinyleRepository = vinyleRepository;
+    }
 
     public List<VinylModel> getAll(){
         return vinyleRepository.findAll();
@@ -55,11 +38,13 @@ public class VinylService {
         return vinyleRepository.save(vinyleModel);
     }
 
-    public VinylModel update(int id, VinylModel vinyleModel) throws Exception {
-        if(vinyleModel.getVinyl_id() != id){
-            throw new Exception("Mauvaise id");
+    public void update(int id, VinylModel vinyleModel) throws Exception {
+        Optional<VinylModel> vinylModelOption = vinyleRepository.findById(id);
+        if(vinylModelOption.isEmpty()){
+            throw new Exception("Id Not Found !!!");
         } else {
-            return vinyleRepository.save(vinyleModel);
+            vinyleModel.setVinyl_id(id);
+            vinyleRepository.save(vinyleModel);
         }
     }
 }

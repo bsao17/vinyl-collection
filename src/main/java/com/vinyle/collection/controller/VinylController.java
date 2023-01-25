@@ -16,27 +16,27 @@ import java.util.List;
 @Getter
 @Setter
 public class VinylController {
-
     @Autowired
     private CollectionService collectionService;
-
     @Autowired
     private VinylService vinylesService;
 
     @GetMapping(path = "/vinyls")
-    public List<VinylModel> getVinylesService() {
+    public List<VinylModel> getVinyles() {
         return vinylesService.getAll();
     }
-
+    @GetMapping("/vinyl/{id}")
+    public VinylModel getVinyl(@PathVariable int id){
+        return vinylesService.getById(id);
+    }
     @PostMapping(path = "/add")
     @ResponseStatus(code = HttpStatus.CREATED)
     public VinylModel createVinyl(@RequestBody VinylModel vinylModel){
         return vinylesService.save(vinylModel);
     }
-
     @PutMapping(path = "/update/{id}")
-    public VinylModel update(@PathVariable int id, @RequestBody VinylModel vinylModel) throws Exception {
-        return vinylesService.update(id, vinylModel);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void update(@PathVariable int id, @RequestBody VinylModel vinylModel) throws Exception {
+        vinylesService.update(id, vinylModel);
     }
-
 }
