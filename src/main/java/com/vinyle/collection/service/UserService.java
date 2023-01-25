@@ -8,7 +8,9 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Getter
@@ -22,20 +24,25 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    private List<UserModel> getAllUser(){
+    public List<UserModel> getAllUser(){
         return userRepository.findAll();
     }
 
-    private UserModel  getUserById(int id){
+    public UserModel  getUserById(int id){
         return userRepository.getReferenceById(id);
     }
 
-    private void addUser(UserModel userModel){
+    public void addUser(UserModel userModel){
         userRepository.save(userModel);
     }
 
-    private void updateUser(int id, UserModel userModel){
-        userRepository.getReferenceById(id);
-        userRepository.save(userModel);
+    public void updateUser(int id, UserModel userModel) throws NullPointerException {
+        Optional<UserModel> userModelOption = userRepository.findById(id);
+        if (userModelOption.isEmpty()){
+            throw new NullPointerException();
+        } else {
+            userRepository.getReferenceById(id);
+            userRepository.save(userModel);
+        }
     }
 }
