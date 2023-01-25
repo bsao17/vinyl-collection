@@ -20,6 +20,7 @@ public class UserService {
     @Autowired
     private final UserRepository userRepository;
 
+    // Contrôleur pour IoC userRepository
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
@@ -44,5 +45,9 @@ public class UserService {
             userRepository.getReferenceById(id);
             userRepository.save(userModel);
         }
+    }
+
+    public void deleteUser(int id){
+        userRepository.deleteById(id);
     }
 }

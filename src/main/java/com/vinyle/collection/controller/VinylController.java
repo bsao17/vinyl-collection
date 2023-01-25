@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/vinyl")
 @Getter
 @Setter
 public class VinylController {
@@ -21,15 +21,15 @@ public class VinylController {
     @Autowired
     private VinylService vinylesService;
 
-    @GetMapping(path = "/vinyls")
+    @GetMapping(path = "/all")
     public List<VinylModel> getVinyles() {
         return vinylesService.getAll();
     }
-    @GetMapping(path = "/vinyl/{id}")
+    @GetMapping(path = "/{id}")
     public VinylModel getVinyl(@PathVariable int id){
         return vinylesService.getById(id);
     }
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/new")
     @ResponseStatus(code = HttpStatus.CREATED)
     public VinylModel createVinyl(@RequestBody VinylModel vinylModel){
         return vinylesService.save(vinylModel);
@@ -38,5 +38,10 @@ public class VinylController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void update(@PathVariable int id, @RequestBody VinylModel vinylModel) throws Exception {
         vinylesService.update(id, vinylModel);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteVinyl( @PathVariable int id){
+        vinylesService.deletVinyl(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.vinyle.collection.controller;
 
 import com.vinyle.collection.model.UserModel;
+import com.vinyle.collection.repository.UserRepository;
 import com.vinyle.collection.service.UserService;
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class UserController {
         return userService.getUserRepository().findAll();
     }
 
+    @GetMapping(path = "/{id}")
+    public UserModel getUser( @PathVariable int id){
+        return userService.getUserById(id);
+    }
+
     @PostMapping(path = "/new")
     @ResponseStatus(code = HttpStatus.CREATED)
     private void addUser (@RequestBody UserModel userModel){
@@ -31,6 +37,11 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void updateById(@PathVariable int id, @RequestBody UserModel userModel){
         userService.updateUser(id, userModel);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteUser( @PathVariable int id){
+        userService.deleteUser(id);
     }
 
 }

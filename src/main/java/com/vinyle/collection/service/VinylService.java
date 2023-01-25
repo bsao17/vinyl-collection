@@ -47,4 +47,8 @@ public class VinylService {
             vinyleRepository.save(vinyleModel);
         }
     }
+
+    public void deletVinyl(int id){
+        vinyleRepository.deleteById(id);
+    }
 }
