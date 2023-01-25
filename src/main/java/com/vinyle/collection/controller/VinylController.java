@@ -25,7 +25,7 @@ public class VinylController {
     public List<VinylModel> getVinyles() {
         return vinylesService.getAll();
     }
-    @GetMapping("/vinyl/{id}")
+    @GetMapping(path = "/vinyl/{id}")
     public VinylModel getVinyl(@PathVariable int id){
         return vinylesService.getById(id);
     }
